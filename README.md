@@ -59,6 +59,7 @@ npm run tauri -- icon src-tauri/icons/icon.svg --output src-tauri/icons --ios-co
 
 - [Node.js](https://nodejs.org/) (v20+ recommended) & `npm`
 - [Rust](https://rustup.rs/) (1.77.2+)
+- Linux release builds use Ubuntu 24.04 for the glibc and C++ runtime required by the prebuilt ONNX Runtime library; Ubuntu 22.04 is unsupported with these binaries.
 
 ### Installation & Development
 

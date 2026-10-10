@@ -1,6 +1,6 @@
 [package]
 name = "snippets-manager"
-version = "0.1.0"
+version = "0.1.1"
 description = "Modern text and markdown snippet manager with hybrid vector search"
 authors = ["Snippets Manager"]
 edition = "2021"

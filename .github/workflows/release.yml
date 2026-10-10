@@ -81,11 +81,11 @@ jobs:
             os: macos
             rust_target: x86_64-apple-darwin
           - name: Linux Intel (x86_64)
-            runner: ubuntu-22.04
+            runner: ubuntu-24.04
             os: linux
             rust_target: x86_64-unknown-linux-gnu
           - name: Linux ARM64
-            runner: ubuntu-22.04-arm
+            runner: ubuntu-24.04-arm
             os: linux
             rust_target: aarch64-unknown-linux-gnu
           - name: Windows Intel (x86_64)
