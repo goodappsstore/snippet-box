@@ -37,7 +37,7 @@ A lightning-fast, local-first text and Markdown snippet manager built with **Rus
 | **Frontend** | TypeScript, Vite 7, Marked, Highlight.js, DOMPurify |
 | **Desktop Shell** | Tauri 2 (`@tauri-apps/api`, `tauri-plugin-opener`, `tauri-plugin-dialog`) |
 | **Backend** | Rust 2021 |
-| **Local Inference** | `ort` (ONNX Runtime 1.28) + `tokenizers` (Hugging Face) |
+| **Local Inference** | `ort` (ONNX Runtime 1.28; 1.23.2 on Intel macOS) + `tokenizers` (Hugging Face) |
 | **Database** | SQLite 3 (embedding blobs with dimension-independent cosine scoring) + `FTS5` (full-text search) |
 | **HTTP Client** | `reqwest` (with rustls) for OpenAI-compatible embeddings |
 
@@ -166,3 +166,13 @@ Keyword search matches any query term with stemming and prefix matching across t
 Semantic search uses cosine similarity and excludes nonpositive similarities. Filters apply before ranking and the requested result limit. Embeddings can use any positive dimension supported by the provider; set Dimensions to 0 to use its default. Exact vector scoring scans stored embeddings, which favors correctness for personal snippet libraries over approximate indexing for very large datasets.
 
 On upgrade, the text index is rebuilt and legacy embeddings are invalidated. Missing embeddings are generated automatically on the next semantic or hybrid search. Changing the provider, endpoint, model, or dimensions also invalidates embeddings. The first search after these changes can take longer. Provider failures are reported explicitly; keyword search remains available. Settings also offers manual reindexing, which reports failures instead of claiming success.
+
+### Intel macOS ONNX Runtime
+
+The release workflow downloads the official ONNX Runtime 1.23.2 Intel macOS
+archive, verifies its SHA-256 checksum, and bundles its dylib in the app's
+Frameworks directory. Intel macOS installers require macOS 13.4 or later. Other targets use ort's prebuilt ONNX Runtime 1.28.
+For local Intel macOS builds, extract that archive into
+`src-tauri/libs/onnxruntime-intel`, set `ORT_LIB_PATH` to its absolute `lib`
+directory and `ORT_PREFER_DYNAMIC_LINK=1`, and pass
+`--config src-tauri/tauri.macos-intel.conf.json` to the Tauri CLI.

@@ -1,6 +1,6 @@
 [package]
 name = "snippets-manager"
-version = "0.1.1"
+version = "0.1.2"
 description = "Modern text and markdown snippet manager with hybrid vector search"
 authors = ["Snippets Manager"]
 edition = "2021"
@@ -23,7 +23,6 @@ uuid = { version = "1", features = ["v4"] }
 chrono = { version = "0.4", features = ["clock", "serde"] }
 rusqlite = { version = "0.31", features = ["bundled"] }
 sqlite-vec = "=0.1.9"
-ort = "2.0.0-rc.13"
 tokenizers = { version = "0.23.2", default-features = false, features = ["onig"] }
 reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
 thiserror = "2"
@@ -31,3 +30,10 @@ tokio = { version = "1", features = ["macros", "rt-multi-thread", "sync", "time"
 regex = "1"
 stop-words = { version = "0.10", default-features = false, features = ["nltk"] }
 
+# ort no longer ships Intel macOS binaries. Use its older API with the
+# official ONNX Runtime 1.23.2 dylib staged by the release workflow.
+[target.'cfg(all(target_os = "macos", target_arch = "x86_64"))'.dependencies]
+ort = { version = "=2.0.0-rc.13", default-features = false, features = ["std", "ndarray", "tracing", "copy-dylibs", "api-23"] }
+
+[target.'cfg(not(all(target_os = "macos", target_arch = "x86_64")))'.dependencies]
+ort = "=2.0.0-rc.13"

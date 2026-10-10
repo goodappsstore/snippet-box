@@ -30,3 +30,6 @@ AGENTS.md
 
 # Generated Tauri schemas can contain local filesystem paths
 /src-tauri/gen/
+
+# Downloaded Intel macOS ONNX Runtime
+/src-tauri/libs/

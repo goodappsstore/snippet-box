@@ -80,6 +80,7 @@ jobs:
             runner: macos-15-intel
             os: macos
             rust_target: x86_64-apple-darwin
+            extra_args: --config src-tauri/tauri.macos-intel.conf.json
           - name: Linux Intel (x86_64)
             runner: ubuntu-24.04
             os: linux
@@ -148,6 +149,21 @@ jobs:
             curl -L -o src-tauri/resources/model/special_tokens_map.json "https://huggingface.co/onnx-models/jina-embeddings-v2-small-en-onnx/resolve/main/special_tokens_map.json"
           fi
 
+      - name: Stage official ONNX Runtime for Intel macOS
+        if: matrix.rust_target == 'x86_64-apple-darwin'
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive="$RUNNER_TEMP/onnxruntime-intel.tgz"
+          curl --fail --location --retry 3 \
+            https://github.com/microsoft/onnxruntime/releases/download/v1.23.2/onnxruntime-osx-x86_64-1.23.2.tgz \
+            --output "$archive"
+          echo "d10359e16347b57d9959f7e80a225a5b4a66ed7d7e007274a15cae86836485a6  $archive" | shasum -a 256 --check
+          mkdir -p src-tauri/libs/onnxruntime-intel
+          tar -xzf "$archive" -C src-tauri/libs/onnxruntime-intel --strip-components=2
+          echo "ORT_LIB_PATH=$GITHUB_WORKSPACE/src-tauri/libs/onnxruntime-intel/lib" >> "$GITHUB_ENV"
+          echo "ORT_PREFER_DYNAMIC_LINK=1" >> "$GITHUB_ENV"
+
       - name: Install frontend dependencies
         run: npm ci
 
@@ -163,7 +179,17 @@ jobs:
           releaseAssetNamePattern: "SnippetBox-v[version]-[platform]-[arch]-[bundle][setup][ext]"
           uploadUpdaterJson: false
           uploadUpdaterSignatures: false
-          args: --target ${{ matrix.rust_target }}
+          args: --target ${{ matrix.rust_target }} ${{ matrix.extra_args }}
+
+      - name: Verify Intel macOS runtime is bundled
+        if: matrix.rust_target == 'x86_64-apple-darwin'
+        shell: bash
+        run: |
+          set -euo pipefail
+          app="src-tauri/target/x86_64-apple-darwin/release/bundle/macos/SnippetBox.app"
+          test -s "$app/Contents/Frameworks/libonnxruntime.1.23.2.dylib"
+          otool -L "$app/Contents/MacOS/snippets-manager" | grep -F '@rpath/libonnxruntime.1.23.2.dylib'
+          codesign --verify --deep --strict "$app"
 
   publish-release:
     name: Publish release
