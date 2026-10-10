@@ -1,0 +1,32 @@
+# Rust build output
+/target
+/src-tauri/target
+
+# Node / frontend
+/node_modules
+/dist
+
+# SQLite databases & temp files
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+*.db
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Large model binaries (>100MB, fetched in CI automatically)
+*.onnx
+/resources
+
+# Internal agent working files
+AGENTS.md
+
+
+# Generated Tauri schemas can contain local filesystem paths
+/src-tauri/gen/

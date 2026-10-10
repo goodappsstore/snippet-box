@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 256 256" fill="none">
+  <title>SnippetBox</title>
+  <desc>A mint snippet card with code brackets, stacked over an indigo card on a rounded navy tile.</desc>
+  <defs>
+    <linearGradient id="tile" x1="32" y1="8" x2="224" y2="248" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1e2d46"/>
+      <stop offset="1" stop-color="#090d16"/>
+    </linearGradient>
+    <linearGradient id="card" x1="48" y1="66" x2="192" y2="210" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#99f6e4"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="stack" x1="74" y1="46" x2="202" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a5b4fc"/>
+      <stop offset="1" stop-color="#6366f1"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="url(#tile)"/>
+  <rect x="9" y="9" width="238" height="238" rx="55" stroke="#b8d9ff" stroke-opacity=".12" stroke-width="2"/>
+  <rect x="74" y="46" width="128" height="144" rx="22" transform="rotate(12 138 118)" fill="url(#stack)"/>
+  <rect x="46" y="72" width="148" height="144" rx="24" fill="#050d19" fill-opacity=".35"/>
+  <rect x="48" y="66" width="144" height="144" rx="22" fill="url(#card)"/>
+  <rect x="49" y="67" width="142" height="142" rx="21" stroke="#e0fff6" stroke-opacity=".45" stroke-width="2"/>
+  <path d="m99 99-20 20 20 20m42-40 20 20-20 20" stroke="#102b38" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M80 166h80M80 185h48" stroke="#102b38" stroke-width="9" stroke-linecap="round"/>
+</svg>
