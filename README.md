@@ -159,6 +159,10 @@ Navigate to **Settings** (`Cmd/Ctrl + ,`) to switch to a custom provider:
 
 ---
 
+## AI Assistance
+
+Heavy AI assistance used. Not vibe-coded.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
