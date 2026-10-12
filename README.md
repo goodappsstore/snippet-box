@@ -4,7 +4,11 @@
 
 A lightning-fast, local-first text and Markdown snippet manager built with **Rust**, **Tauri 2**, **SQLite**, and local **ONNX embeddings**.
 
-![SnippetBox App Interface](homescreen.jpg)
+## Screenshots
+
+### SnippetBox homescreen
+
+![SnippetBox homescreen](screenshots/snippetbox-home.jpg)
 
 ---
 
